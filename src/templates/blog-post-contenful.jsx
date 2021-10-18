@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import { Container, Header, Image } from "semantic-ui-react"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.contentfulPost
@@ -12,49 +13,50 @@ const BlogPostTemplate = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title={post.title} />
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
-        <header>
-          <h1 itemProp="headline">{post.title}</h1>
-        </header>
-        <img src={post.image.fluid.src} alt="alt" />
-        <hr />
-        <div
-          contentEditable="true"
-          dangerouslySetInnerHTML={{
-            __html: post.blogContent.childMarkdownRemark.html,
-          }}
-        ></div>
-      </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
+      <Container style={{ marginTop: 50 }}>
+        <article
+          className="blog-post"
+          itemScope
+          itemType="http://schema.org/Article"
         >
-          <li>
-            {previous && (
-              <Link to={`/${previous.slug}`} rel="prev">
-                ← {previous.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={`/${next.slug}`} rel="next">
-                {next.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
+          <Header as="h2">{post.title}</Header>
+          <Image src={post.image.fluid.src} fluid style={{ marginTop: 25 }} />
+
+          <div
+            style={{ marginTop: 25 }}
+            contentEditable="true"
+            dangerouslySetInnerHTML={{
+              __html: post.blogContent.childMarkdownRemark.html,
+            }}
+          ></div>
+        </article>
+        <nav className="blog-post-nav">
+          <ul
+            style={{
+              display: `flex`,
+              flexWrap: `wrap`,
+              justifyContent: `space-between`,
+              listStyle: `none`,
+              padding: 0,
+            }}
+          >
+            <li>
+              {previous && (
+                <Link to={`/${previous.slug}`} rel="prev">
+                  ← {previous.title}
+                </Link>
+              )}
+            </li>
+            <li>
+              {next && (
+                <Link to={`/${next.slug}`} rel="next">
+                  {next.title} →
+                </Link>
+              )}
+            </li>
+          </ul>
+        </nav>
+      </Container>
     </Layout>
   )
 }

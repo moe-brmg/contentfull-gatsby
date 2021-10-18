@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import { Container, Header, Icon, Segment } from "semantic-ui-react"
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -8,15 +9,29 @@ const Layout = ({ location, title, children }) => {
 
   if (isRootPath) {
     header = (
-      <h1 className="main-heading">
-        <Link to="/">{title}</Link>
-      </h1>
+      <Segment inverted className="MainHead">
+        <Container>
+          <h1 className="main-heading"></h1>
+          <Header as="h1" inverted>
+            <Link to="/">
+              <Icon name="blogger b" /> {title}
+            </Link>
+          </Header>
+        </Container>
+      </Segment>
     )
   } else {
     header = (
-      <Link className="header-link-home" to="/">
-        {title}
-      </Link>
+      <Segment inverted className="MainHead">
+        <Container>
+          <h1 className="main-heading"></h1>
+          <Header as="h1" inverted>
+            <Link to="/">
+              <Icon name="blogger b" /> {title}
+            </Link>
+          </Header>
+        </Container>
+      </Segment>
     )
   }
 
@@ -25,9 +40,13 @@ const Layout = ({ location, title, children }) => {
       <header className="global-header">{header}</header>
       <main>{children}</main>
       <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <Segment inverted>
+          <Container>
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.com">Gatsby</a>
+          </Container>
+        </Segment>
       </footer>
     </div>
   )
